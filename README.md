@@ -1,1 +1,1 @@
-# web-hand.js
+# web-hand
