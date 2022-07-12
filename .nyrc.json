@@ -1,0 +1,19 @@
+{
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "extension": [".ts"],
+  "exclude": ["src/common/CONSTANTS.ts"],
+  "include": ["src"],
+  "reporter": ["lcov", "text-summary"],
+  "report-dir": "coverage",
+  "temp-dir": ".nyc_output",
+  "require": ["@swc/core"],
+  "cache": true,
+  "sourceMap": true,
+  "instrument": true,
+  "check-coverage": true,
+  "branches": 99,
+  "lines": 99,
+  "function": 99,
+  "statements": 99,
+  "per-file": true
+}

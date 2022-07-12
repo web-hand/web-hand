@@ -1,0 +1,9 @@
+{
+  "diff": true,
+  "parallel": true,
+  "extension": ["ts"],
+  "spec": ["test/**/*.spec.ts"],
+  "require": ["jsdom-global/register", "@swc/core"],
+  "check-leaks": true,
+  "color": true
+}
