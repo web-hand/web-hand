@@ -16,6 +16,7 @@
     "url": "git+https://github.com/web-hand/web-hand.git"
   },
   "scripts": {
+    "postinstall": "git config core.hooksPath ./git-hooks",
     "start": "webpack --watch --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint . --ext .ts",
