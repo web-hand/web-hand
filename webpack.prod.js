@@ -7,8 +7,8 @@ export default merge(commonConfig, {
   output: {
     filename: 'web-hand.js',
     library: {
-      type: 'module'
-    }
+      type: 'module',
+    },
   },
   module: {
     rules: [
@@ -22,7 +22,7 @@ export default merge(commonConfig, {
               parser: {
                 syntax: 'typescript',
                 dynamicImport: true,
-                decorators: true
+                decorators: true,
               },
               minify: {
                 compress: {
@@ -39,19 +39,19 @@ export default merge(commonConfig, {
                   negate_iife: true,
                   sequences: true,
                   switches: true,
-                  unused: true
-                }
-              }
+                  unused: true,
+                },
+              },
             },
             module: {
               type: 'es6',
               strict: true,
-              strictMode: true
-            }
-          }
+              strictMode: true,
+            },
+          },
         },
-        exclude: /node_modules/
-      }
-    ]
-  }
+        exclude: /node_modules/,
+      },
+    ],
+  },
 });

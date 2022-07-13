@@ -1,3 +1,4 @@
+import ESLintPlugin from 'eslint-webpack-plugin';
 import path from 'path';
 
 export default {
@@ -5,15 +6,21 @@ export default {
   output: {
     filename: '[name].js',
     path: path.resolve('./dist'),
-    clean: true
+    clean: true,
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
   },
   optimization: {
-    usedExports: true
+    usedExports: true,
   },
   experiments: {
-    outputModule: true
-  }
+    outputModule: true,
+  },
+  plugins: [
+    new ESLintPlugin({
+      extensions: 'ts',
+      threads: true,
+    }),
+  ],
 };
