@@ -1,9 +1,13 @@
 import { merge } from 'webpack-merge';
+import HTMLWebpackPlugin from 'html-webpack-plugin';
 import commonConfig from './webpack.common.js';
 
 export default merge(commonConfig, {
   mode: 'development',
   devtool: 'eval-source-map',
+  output: {
+    scriptType: 'text/javascript'
+  },
   module: {
     rules: [
       {
@@ -13,4 +17,18 @@ export default merge(commonConfig, {
       },
     ],
   },
+  devServer: {
+    host: 'local-ip',
+    port: 8080,
+    hot: 'only',
+    static: {
+      directory: '/dist',
+    },
+  },
+  plugins: [
+    new HTMLWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html'
+    })
+  ]
 });
