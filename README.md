@@ -4,7 +4,7 @@
 
 Below you can find all scripts you can use inside this repository
 
-- `npm run start` → starts webpack in watch mode with **ts-loader** compiler
+- `npm run serve` → starts webpack dev server over https under 8080 port
 - `npm run build` → creates project production build using webpack with **swc** compiler
 - `npm run pretyprint` → run code prettier code formatter for all files inside project **root** directory and print all issues
 - `npm run pretyprint:fix` → run code prettier (code formatter) for all files inside project **root** directory and fix all fixable issues

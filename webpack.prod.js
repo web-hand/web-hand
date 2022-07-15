@@ -4,6 +4,7 @@ import commonConfig from './webpack.common.js';
 export default merge(commonConfig, {
   mode: 'production',
   target: ['web', 'es2020'],
+  entry: '/src/index.ts',
   output: {
     filename: 'web-hand.js',
     library: {

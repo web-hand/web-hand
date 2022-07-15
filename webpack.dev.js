@@ -5,8 +5,9 @@ import commonConfig from './webpack.common.js';
 export default merge(commonConfig, {
   mode: 'development',
   devtool: 'eval-source-map',
+  entry: './demo/demo.ts',
   output: {
-    scriptType: 'text/javascript'
+    scriptType: 'text/javascript',
   },
   module: {
     rules: [
@@ -20,6 +21,7 @@ export default merge(commonConfig, {
   devServer: {
     host: 'local-ip',
     port: 8080,
+    server: 'https',
     hot: 'only',
     static: {
       directory: '/dist',
@@ -28,7 +30,7 @@ export default merge(commonConfig, {
   plugins: [
     new HTMLWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html'
-    })
-  ]
+      template: '/demo/demo.html',
+    }),
+  ],
 });

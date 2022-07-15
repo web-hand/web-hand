@@ -1,3 +1,4 @@
 export const name = 'web-hand.js';
-import {} from '@mediapipe/hands';
-console.log(name);
+import { Hands } from '@mediapipe/hands';
+
+console.log(Hands);
