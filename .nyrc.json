@@ -11,9 +11,9 @@
   "sourceMap": true,
   "instrument": true,
   "check-coverage": true,
-  "branches": 99,
-  "lines": 99,
-  "function": 99,
-  "statements": 99,
+  "branches": 80,
+  "lines": 80,
+  "function": 80,
+  "statements": 80,
   "per-file": true
 }
