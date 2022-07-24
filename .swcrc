@@ -1,0 +1,17 @@
+{
+  "test": ".*.ts$",
+  "sourceMaps": true,
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "dynamicImport": true,
+      "decorators": true
+    },
+    "target": "es2020",
+    "keepClassNames": true
+  },
+  "isModule": false,
+  "module": {
+    "type": "commonjs"
+  }
+}
