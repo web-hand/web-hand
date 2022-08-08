@@ -175,5 +175,22 @@
     "no-unmodified-loop-condition": "off",
     "accessor-pairs": "off",
     "@typescript-eslint/no-namespace": "off"
-  }
+  },
+  "overrides": [
+    // Disabled rules only for test files
+    {
+      "files": ["**/*.spec.ts"],
+      "rules": {
+        "no-unused-expressions": "off",
+        "no-magic-numbers": "off"
+      }
+    },
+    {
+      "files": ["**/isDefined.ts"],
+      "rules": {
+        "eqeqeq": "off",
+        "no-eq-null": "off"
+      }
+    }
+  ]
 }
