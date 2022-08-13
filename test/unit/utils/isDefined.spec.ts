@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { isDefined } from '../../../src/utils/isDefined';
 
 describe(isDefined.name, () => {
-  describe('Truthy values', () => {
+  describe('Defined values', () => {
     it(`should return true if true`, () => {
       expect(isDefined(true)).to.be.true;
     });
@@ -65,7 +65,7 @@ describe(isDefined.name, () => {
       expect(isDefined(NaN)).to.be.true;
     });
   });
-  describe('Falsy values', () => {
+  describe('Undefined values', () => {
     it(`should return false if null`, () => {
       expect(isDefined(null)).to.be.false;
     });
