@@ -3,7 +3,7 @@
   "parallel": true,
   "extension": ["ts"],
   "spec": ["test/**/*.spec.ts"],
-  "require": ["jsdom-global/register", "@swc/core"],
+  "require": ["@swc/register", "jsdom-global/register", "@swc/core", "test/mochaSetup.ts"],
   "check-leaks": true,
   "color": true
 }

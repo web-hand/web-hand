@@ -10,7 +10,7 @@
     "browser": true,
     "es6": true
   },
-  "plugins": ["@typescript-eslint", "prettier", "import"],
+  "plugins": ["@typescript-eslint", "prettier", "import", "chai-friendly"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -175,5 +175,23 @@
     "no-unmodified-loop-condition": "off",
     "accessor-pairs": "off",
     "@typescript-eslint/no-namespace": "off"
-  }
+  },
+  "overrides": [
+    // Disabled rules only for test files
+    {
+      "files": ["**/*.spec.ts"],
+      "rules": {
+        "no-magic-numbers": "off",
+        "no-unused-expressions": "off",
+        "chai-friendly/no-unused-expressions": "error"
+      }
+    },
+    {
+      "files": ["**/isDefined.ts"],
+      "rules": {
+        "eqeqeq": "off",
+        "no-eq-null": "off"
+      }
+    }
+  ]
 }

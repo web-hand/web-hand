@@ -23,10 +23,12 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "pretyprint": "prettier --check .",
     "pretyprint:fix": "prettier --write .",
-    "test": "mocha -r @swc/register",
-    "test:watch": "mocha -r @swc/register --w --watch-files test/**/*.spec.ts",
-    "test:coverage": "nyc --reporter=html --reporter=text mocha -r @swc/register",
-    "test:watch:coverage": "nyc --reporter=html --reporter=text mocha -r @swc/register --w --watch-files test/**/*.spec.ts"
+    "test": "mocha --config-file .mocharc.json",
+    "test:suite": "mocha --config-file .mocharc.json -g",
+    "test:suite:watch": "mocha --config-file .mocharc.json --w -g",
+    "test:watch": "mocha --config-file .mocharc.json --w --watch-files test/**/*.spec.ts",
+    "test:coverage": "nyc --reporter=html --reporter=text mocha --config-file .mocharc.json",
+    "test:watch:coverage": "nyc --reporter=html --reporter=text mocha --config-file .mocharc.json --w --watch-files test/**/*.spec.ts"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
@@ -42,6 +44,7 @@
     "chai": "^4.3.6",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-webpack-plugin": "^3.2.0",
