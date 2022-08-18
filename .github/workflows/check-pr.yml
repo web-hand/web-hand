@@ -1,0 +1,31 @@
+name: Check Pull Request
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 💾
+        uses: actions/checkout@v3
+
+      - name: Setup node 🦠
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.0.0
+
+      - name: Install dependencies 🔧
+        run: npm install
+
+      - name: Check code formatting 📝
+        run: npm run pretyprint
+
+      - name: Lint Typescript 🌀
+        run: npm run lint
+
+      - name: Run Tests 🧪
+        run: npm run test
+
+      - name: Build 🧬
+        run: npm run build

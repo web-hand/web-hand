@@ -1,0 +1,9 @@
+{
+  "diff": true,
+  "parallel": true,
+  "extension": ["ts"],
+  "spec": ["test/**/*.spec.ts"],
+  "require": ["@swc/register", "jsdom-global/register", "@swc/core", "test/mochaSetup.ts"],
+  "check-leaks": true,
+  "color": true
+}
