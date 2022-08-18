@@ -1,5 +1,5 @@
 {
-  "name": "web-hand",
+  "name": "@web-hand/web-hand",
   "version": "0.0.1",
   "sideEffects": false,
   "source": "src/index.ts",
