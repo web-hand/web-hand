@@ -1,6 +1,6 @@
 name: Publish package to registry
 
-on: 
+on:
   release:
     types: [created]
 
