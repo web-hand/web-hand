@@ -65,5 +65,8 @@
   },
   "dependencies": {
     "@mediapipe/hands": "^0.4.1646424915"
+  },
+  "optionalDependencies": {
+    "@swc/core-darwin-x64": "^1.2.224"
   }
 }
