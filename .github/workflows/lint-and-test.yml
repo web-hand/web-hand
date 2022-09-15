@@ -1,0 +1,35 @@
+name: Run linters and test
+
+on:
+  workflow_call:
+
+jobs:
+  lint-and-test:
+    name: Run linters and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 💾
+        uses: actions/checkout@v3
+
+      - name: Setup node 🦠
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Install dependencies 🔧
+        run: npm ci
+
+      - name: Run linters 📝
+        uses: wearerequired/lint-action@v2
+        with:
+          github_token: ${{ secrets.github_token }}
+          eslint: true
+          eslint_extensions: ts,tsx
+          prettier: true
+
+      - name: Build 🧬
+        run: npm run build
+
+      - name: Run Tests 🧪
+        run: npm run test

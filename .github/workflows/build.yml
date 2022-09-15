@@ -1,0 +1,17 @@
+name: Push master
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  call-workflow:
+    uses: web-hand/web-hand/.github/workflows/lint-and-test.yml@main
+
+  build:
+    name: Push master
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Generate coverage report 📦
+        run: npm run test:coverage:push
