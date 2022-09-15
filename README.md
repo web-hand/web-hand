@@ -1,5 +1,6 @@
 # web-hand
-
+![build](https://github.com/web-hand/workflows/build/badge.svg)
+[![GitHub license](https://img.shields.io/github/license/web-hand/web-hand?style=for-the-badge)]
 ## Scripts
 
 Below you can find all scripts you can use inside this repository
@@ -14,3 +15,4 @@ Below you can find all scripts you can use inside this repository
 - `npm run test:coverage` → run tests and generates tests coverage report
 - `npm run test:watch` → run tests in watch mode. If you change any test case tests will be re-triggered
 - `npm run test:watch:coverage` → run tests in watch mode and generates coverage reports every time tests get re-triggered
+- `npm run test:external:coverage` → run tests and generates tests coverage report for external services

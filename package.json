@@ -8,9 +8,12 @@
   "module": "dist/module.js",
   "types": "dist/types.d.ts",
   "type": "module",
-  "author": "",
+  "author": "@web-hand",
   "license": "MIT",
-  "homepage": "https://github.com/web-hand",
+  "homepage": "https://github.com/web-hand/web-hand",
+  "bugs": {
+    "url": "https://github.com/web-hand/web-hand/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/web-hand/web-hand.git"
@@ -28,7 +31,8 @@
     "test:suite:watch": "mocha --config-file .mocharc.json --w -g",
     "test:watch": "mocha --config-file .mocharc.json --w --watch-files test/**/*.spec.ts",
     "test:coverage": "nyc --reporter=html --reporter=text mocha --config-file .mocharc.json",
-    "test:watch:coverage": "nyc --reporter=html --reporter=text mocha --config-file .mocharc.json --w --watch-files test/**/*.spec.ts"
+    "test:watch:coverage": "nyc --reporter=html --reporter=text mocha --config-file .mocharc.json --w --watch-files test/**/*.spec.ts",
+    "test:external:coverage": "nyc --reporter=lcov --reporter=text mocha --config-file .mocharc.json"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
