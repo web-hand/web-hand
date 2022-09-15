@@ -19,7 +19,7 @@ jobs:
           node-version: '18.x'
 
       - name: Install dependencies 🔧
-        run: npm ci
+      - run: npm ci
 
       - name: Publish 📦
       - run: npm publish --access public

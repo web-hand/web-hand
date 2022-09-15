@@ -1,0 +1,10 @@
+name: check-pr
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  call-workflow:
+    uses: web-hand/web-hand/.github/workflows/lint-and-test.yml@main
+

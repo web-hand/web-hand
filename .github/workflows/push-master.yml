@@ -1,4 +1,4 @@
-name: Push master
+name: push-master
 
 on:
   push:
@@ -8,7 +8,7 @@ jobs:
   call-workflow:
     uses: web-hand/web-hand/.github/workflows/lint-and-test.yml@main
 
-  build:
+  push-master:
     name: Push master
     runs-on: ubuntu-latest
     steps:
