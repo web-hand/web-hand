@@ -5,8 +5,8 @@ on:
     types: [created]
 
 jobs:
-  call-workflow:
-    uses: web-hand/web-hand/.github/workflows/lint-and-test.yml@main
+  lint-and-test:
+    uses: ./.github/workflows/lint-and-test.yml
 
   publish:
     runs-on: ubuntu-latest
