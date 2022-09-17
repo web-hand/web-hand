@@ -12,7 +12,6 @@ jobs:
     name: push-master-and-create-code-coverage-report
     runs-on: ubuntu-latest
     steps:
-
       - name: Generate coverage report 📦
         run: npm run test:coverage:push
 
