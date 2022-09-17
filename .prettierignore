@@ -3,6 +3,3 @@
 /dist/*
 /coverage/*
 /.nyc_output/*
-/.github/*
-LICENSE.md
-README.md

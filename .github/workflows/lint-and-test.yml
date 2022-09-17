@@ -27,8 +27,5 @@ jobs:
           eslint_extensions: ts,tsx
           prettier: true
 
-      - name: Build 🧬
-        run: npm run build
-
       - name: Run Tests 🧪
         run: npm run test

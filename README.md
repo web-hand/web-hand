@@ -1,5 +1,6 @@
 # web-hand
 ![build](https://github.com/web-hand/workflows/build/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/web-hand/web-hand/badge.svg)](https://coveralls.io/github/web-hand/web-hand)
 [![GitHub license](https://img.shields.io/github/license/web-hand/web-hand?style=for-the-badge)]
 ## Scripts
 

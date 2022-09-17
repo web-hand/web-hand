@@ -3,7 +3,6 @@
 /dist/*
 /coverage/*
 /.nyc_output/*
-/.github/*
 .eslintrc.json
 .pretierrc.json
 .stylelintrc.json
