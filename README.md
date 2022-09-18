@@ -1,7 +1,7 @@
 # web-hand
 
-![build](https://github.com/web-hand/web-hand/.github/workflows/push-master-and-create-code-coverage-report.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/web-hand/web-hand/badge.svg)(https://coveralls.io/github/web-hand/web-hand)]
+![build](https://github.com/web-hand/web-hand/actions/workflows/push-master-and-create-code-coverage-report.yml/badge.svg)
+![Coverage Status](https://coveralls.io/repos/github/web-hand/web-hand/badge.svg)
 ![GitHub license](https://img.shields.io/github/license/web-hand/web-hand)
 
 ## Scripts
