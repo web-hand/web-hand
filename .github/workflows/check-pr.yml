@@ -1,4 +1,4 @@
-name: check-pr
+name: Check PR
 
 on:
   pull_request:
@@ -8,5 +8,9 @@ jobs:
   lint-and-test:
     uses: ./.github/workflows/lint-and-test.yml
 
-   - name: Build 🧬
+  check-pr:
+    name: Check PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build 🧬
         run: npm run build
