@@ -20,12 +20,14 @@ jobs:
       - name: Install dependencies 🔧
         run: npm ci
 
-      - name: Run linters 📝
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          eslint_extensions: ts,tsx
-          prettier: true
+      - name: Check code formatting 📝
+        run: npm run pretyprint
+
+      - name: Lint Typescript 🌀
+        run: npm run lint
+
+      - name: Run Tests 🧪
+        run: npm run test
 
       - name: Run Tests 🧪
         run: npm run test
