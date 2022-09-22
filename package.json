@@ -35,6 +35,8 @@
     "@swc/core": "^1.2.211",
     "@swc/register": "^0.1.10",
     "@types/chai": "^4.3.1",
+    "@types/jsdom": "^20.0.0",
+    "@types/jsdom-global": "^3.0.3",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.3",
     "@types/sinon": "^10.0.12",
