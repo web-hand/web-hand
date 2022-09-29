@@ -16,12 +16,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+          cache: 'npm'
 
       - name: Install dependencies 🔧
         run: npm ci
 
       - name: Check code formatting 📝
-        run: npm run pretyprint
+        run: npm run prettyprint
 
       - name: Lint Typescript 🌀
         run: npm run lint

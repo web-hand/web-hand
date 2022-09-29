@@ -9,10 +9,10 @@ jobs:
     uses: ./.github/workflows/lint-and-test.yml
 
   push-master-and-create-code-coverage-report:
-    name: push-master-and-create-code-coverage-report
+    name: Push master and deploy code coverage report
     runs-on: ubuntu-latest
     steps:
-      - name: Build 🧬
+      - name: Generate build 🛠
         run: npm run build
 
       - name: Generate coverage report 📦

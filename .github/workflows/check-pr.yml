@@ -12,5 +12,5 @@ jobs:
     name: Check PR
     runs-on: ubuntu-latest
     steps:
-      - name: Build 🧬
+      - name: Generate build 🛠
         run: npm run build
