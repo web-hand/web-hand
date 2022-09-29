@@ -24,22 +24,13 @@ Before you will use this repository make sure that you have installed:
     **[nvm](https://github.com/nvm-sh/nvm#install--update-script)**
 
     ```bash
-    curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+    curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
     sudo apt-get install -y nodejs
     ```
 
-  > Or any other static HTTP server
-
-- If you have installed **Node.js** and **npm**, then open your terminal / git-bash and run this command
-
-  ```bash
-  sudo npm install -g http-server
-  ```
-
 ## Node version setup
 
-The lowest checked node.js version that was found to be compatible with this project is node v17.0.0. The project uses the structuredClone method
-which is supported only by the node.js v17 or higher. It is recommended to use nvm in addition so that you can switch between node versions.
+You have to install node.js in version at least 17
 
 If you followed every step, you should be ready to start using this repository. To make sure that you have installed everything correctly open your
 terminal git-bash and run the following commands:
@@ -47,7 +38,6 @@ terminal git-bash and run the following commands:
 - To check **git**: _`git --version`_ → you shoud see output with **git** version
 - To check **node.js**: _`node --version`_ → you shoud see output with **node.js** version
 - To check **npm**: _`npm --version`_ → you shoud see output with **npm** version
-- To check **http-server**: _`http-server`_ → you should see output which starts with **Starting up http-server, serving**
 
 ## Downloading the repository
 
