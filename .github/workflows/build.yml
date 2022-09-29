@@ -28,7 +28,7 @@ jobs:
           name: webhand-build
 
       - name: Generate coverage report 📦
-        run: npm run test:coverage:push
+        run: npm run test:external:coverage
 
       - name: Send coverage rapport to Coveralls 🚀
         uses: coverallsapp/github-action@master
