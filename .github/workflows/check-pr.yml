@@ -16,4 +16,4 @@ jobs:
       - name: Get artifact 🛠
         uses: actions/download-artifact@v2
         with:
-          name: dist
+          name: webhand-build
