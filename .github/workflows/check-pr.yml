@@ -10,6 +10,7 @@ jobs:
 
   check-pr:
     name: Check PR
+    needs: [lint-and-test]
     runs-on: ubuntu-latest
     steps:
       - name: Generate build 🛠
