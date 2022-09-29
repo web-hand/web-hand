@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '18.x'
           cache: 'npm'
+          
+      - name: Install dependencies 🔧
+        run: npm ci
 
       - name: Get artifact 🛠
         uses: actions/download-artifact@v2
