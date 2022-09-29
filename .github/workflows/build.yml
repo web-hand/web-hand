@@ -1,4 +1,4 @@
-name: push-master-and-create-code-coverage-report
+name: build
 
 on:
   push:
@@ -8,12 +8,15 @@ jobs:
   lint-and-test:
     uses: ./.github/workflows/lint-and-test.yml
 
-  push-master-and-create-code-coverage-report:
+  build:
     name: Push master and deploy code coverage report
+    needs: [lint-and-test]
     runs-on: ubuntu-latest
     steps:
-      - name: Generate build 🛠
-        run: npm run build
+      - name: Get artifact 🛠
+        uses: actions/download-artifact@v2
+        with:
+          name: webhand-build
 
       - name: Generate coverage report 📦
         run: npm run test:coverage:push
