@@ -13,5 +13,7 @@ jobs:
     needs: [lint-and-test]
     runs-on: ubuntu-latest
     steps:
-      - name: Generate build 🛠
-        run: npm run build
+      - name: Get artifact 🛠
+        uses: actions/download-artifact@v2
+        with:
+          name: dist

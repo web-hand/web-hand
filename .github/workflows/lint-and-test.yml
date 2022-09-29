@@ -29,3 +29,12 @@ jobs:
 
       - name: Run Tests 🧪
         run: npm run test
+
+      - name: Generate build
+        run: npm run build
+
+      - name: Share artifact inside workflow
+        uses: actions/upload-artifact@v2
+        with:
+          name: webhand-build
+          path: dist
