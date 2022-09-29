@@ -27,7 +27,8 @@ Before you will use this repository make sure that you have installed:
     curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
     sudo apt-get install -y nodejs
     ```
-  > You have to install node.js in version at least 17
+
+    > You have to install node.js in version at least 17
 
 If you followed every step, you should be ready to start using this repository. To make sure that you have installed everything correctly open your
 terminal git-bash and run the following commands:
