@@ -65,23 +65,20 @@ export class HandTrackingService implements IHandTrackingService {
 
   onResults(results: { multiHandLandmarks: coordinates[][] }): void {
     console.log(results.multiHandLandmarks);
-    this.temp = results.multiHandLandmarks;
-    console.log(this.temp);
   }
 
   async requestPrediction(): Promise<HandVector> {
-    return new Promise((resolve) => {
-      if (isDefined(this.videoElement)) {
-        this.hands
-          .send({ image: this.videoElement })
-          .then(() => {
-            resolve([[{ x: 0, y: 0, z: 0 }]]);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      }
-    });
+    console.log('test');
+    console.log(this.hands.send({ image: this.videoElement! }));
+    // return new Promise(() => {
+    //   if (isDefined(this.videoElement)) {
+    //     this.hands
+    //       .send({ image: this.videoElement })
+    //       .catch((e) => {
+    //         console.log(e);
+    //       });
+    //   }
+    // });
   }
 
   private getCamera(): Promise<MediaStream> {
