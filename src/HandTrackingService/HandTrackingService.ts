@@ -40,19 +40,16 @@ export class HandTrackingService implements IHandTrackingService {
       if (this.videoSourceObect) {
         this.videoElement.srcObject = this.videoSourceObect;
       } else {
-        await this.getCamera().then((device) => {
-          if (isDefined(this.videoElement)) {
+      const device = await this.getCamera();
             this.videoSourceObect = device;
-            this.videoElement.srcObject = device;
-          } else {
-            throw new Error(`Cannot access video elemet`);
-          }
-        });
+            this.videoElement.srcObject = device;      
       }
       await this.videoElement.play().catch((e: string) => {
         throw new Error(`Cannot play media streem ${e}`);
       });
-      document.body.appendChild(this.videoElement);
+      // document.body.appendChild(this.videoElement);
+      console.log(this.videoSourceObect);
+      
       this.isRunning = true;
     }
   }
@@ -68,7 +65,7 @@ export class HandTrackingService implements IHandTrackingService {
   }
 
   async requestPrediction(): Promise<HandVector> {
-    console.log('test');
+    console.log(this.videoSourceObect);
     console.log(this.hands.send({ image: this.videoElement! }));
     // return new Promise(() => {
     //   if (isDefined(this.videoElement)) {

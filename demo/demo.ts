@@ -8,7 +8,9 @@ HTS.start()
     })
 
 
-// const intervalDelay = 1000;
+// const intervalDelay = 5000;
+
+
 // const loader = async () => {
 //   await HTS.start()
 //     .then(() => {
