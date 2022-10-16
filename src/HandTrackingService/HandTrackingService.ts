@@ -1,22 +1,25 @@
-import type { coordinates, HandVector, IHandTrackingService, Settings } from './HandTrackingService.type';
+import { coordinates, HandVector, IHandTrackingService, Settings } from './HandTrackingService.type';
 import { Hands } from '@mediapipe/hands';
 import { isDefined } from '../utils/isDefined';
 
 export class HandTrackingService implements IHandTrackingService {
-  private hands: Hands;
-  private videoSourceObect: MediaStream | undefined;
   isRunning: boolean;
-  private videoElement: HTMLVideoElement | undefined;
-  private temp: HandVector;
+  hands: Hands;
+  videoSourceObect: MediaStream | undefined;
+  isInitialize: Promise<void>;
+  videoElement: HTMLVideoElement;
+  resultsBuffer: coordinates[][];
 
   constructor(settings: Settings) {
-    this.temp = [[{ x: 0, y: 0, z: 0 }]];
     const defaultHandsNumber = 1;
     const defaultMinTrackingConfidence = 0.5;
     const defaultMinDetectionConfidence = 0.5;
     const defaultModelComplexity = 1;
 
+    this.resultsBuffer = [[{ x: 0, y: 0, z: 0 }]];
+    this.videoElement = document.createElement('video');
     this.isRunning = false;
+
     this.hands = new Hands({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
@@ -29,53 +32,25 @@ export class HandTrackingService implements IHandTrackingService {
       minTrackingConfidence: settings?.minTrackingConfidence ? settings?.minTrackingConfidence : defaultMinTrackingConfidence,
       modelComplexity: settings?.modelComplexity ? settings?.modelComplexity : defaultModelComplexity,
     });
-    this.hands.onResults(this.onResults);
+    this.isInitialize = this.hands.initialize().catch((e: string) => {
+      console.error(e);
+    });
 
     this.videoSourceObect = settings?.videoSourceObect ? settings?.videoSourceObect : undefined;
   }
 
   async start(): Promise<void> {
     if (!this.isRunning) {
-      this.videoElement = document.createElement('video');
-      if (this.videoSourceObect) {
-        this.videoElement.srcObject = this.videoSourceObect;
-      } else {
-      const device = await this.getCamera();
-            this.videoSourceObect = device;
-            this.videoElement.srcObject = device;      
+      await this.isInitialize;
+      if (!isDefined(this.videoSourceObect)) {
+        this.videoSourceObect = await this.getCamera();
       }
+      this.videoElement.srcObject = this.videoSourceObect;
       await this.videoElement.play().catch((e: string) => {
         throw new Error(`Cannot play media streem ${e}`);
       });
-      // document.body.appendChild(this.videoElement);
-      console.log(this.videoSourceObect);
-      
       this.isRunning = true;
     }
-  }
-  stop(): void {
-    if (this.isRunning) {
-      this.videoElement?.remove();
-      this.isRunning = false;
-    }
-  }
-
-  onResults(results: { multiHandLandmarks: coordinates[][] }): void {
-    console.log(results.multiHandLandmarks);
-  }
-
-  async requestPrediction(): Promise<HandVector> {
-    console.log(this.videoSourceObect);
-    console.log(this.hands.send({ image: this.videoElement! }));
-    // return new Promise(() => {
-    //   if (isDefined(this.videoElement)) {
-    //     this.hands
-    //       .send({ image: this.videoElement })
-    //       .catch((e) => {
-    //         console.log(e);
-    //       });
-    //   }
-    // });
   }
 
   private getCamera(): Promise<MediaStream> {
@@ -86,6 +61,37 @@ export class HandTrackingService implements IHandTrackingService {
         .then(resolve)
         .catch((error: string) => {
           throw new Error(`Cannot create camera: ${error}`);
+        });
+    });
+  }
+
+  stop(): void {
+    if (this.isRunning) {
+      this.videoElement?.remove();
+      this.isRunning = false;
+    }
+  }
+
+  requestPrediction(): Promise<HandVector> {
+    const onResults = (results: { multiHandLandmarks: coordinates[][] }) => {
+      if (results.multiHandLandmarks) {
+        this.resultsBuffer = results.multiHandLandmarks;
+      }
+    };
+
+    this.hands.onResults(onResults);
+
+    return new Promise((resolve, reject) => {
+      if (!this.isRunning) {
+        reject('Service is not running yet');
+      }
+      this.hands
+        .send({ image: this.videoElement })
+        .then(() => {
+          resolve(this.resultsBuffer);
+        })
+        .catch(() => {
+          reject();
         });
     });
   }

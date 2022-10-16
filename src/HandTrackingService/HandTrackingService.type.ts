@@ -4,18 +4,21 @@ export type coordinates = {
   z: number;
 };
 
+type OneOrTwo = 1 | 2;
+type ZeroOrOne = 0 | 1;
+
 export type Settings = {
   videoSourceObect?: MediaStream;
-  handsNumber?: 1 | 2;
+  handsNumber?: OneOrTwo;
   minDetectionConfidence?: number;
   minTrackingConfidence?: number;
-  modelComplexity?: 0 | 1;
+  modelComplexity?: ZeroOrOne;
 };
 
 export type HandVector = coordinates[][];
 
 export interface IHandTrackingService {
-  start(): void;
+  start(): Promise<void>;
   stop(): void;
-  requestPrediction(): Promise<HandVector> ;
+  requestPrediction(): Promise<HandVector>;
 }
