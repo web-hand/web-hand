@@ -1,5 +1,5 @@
 // THIS IS DEMO FILE ONLY FOR DEV TESTING
-import { coordinates } from '../src/HandTrackingService/HandTrackingService.type';
+import { Coordinates3D } from '../src/HandTrackingService/HandTrackingService.type';
 import { HandTrackingService } from '../src/HandTrackingService/HandTrackingService';
 
 const HTS = new HandTrackingService({});
@@ -23,7 +23,7 @@ const initPoints = (pointsNumber: number) => {
   return pointsArray;
 };
 
-const movePoints = (points: HTMLElement[], positions: coordinates[][]) => {
+const movePoints = (points: HTMLElement[], positions: Coordinates3D[][]) => {
   const whichHand = 0;
   points.forEach((element: HTMLElement, id: number) => {
     element.style.left = `${positions[whichHand][id]?.x * screen.width}px`;
@@ -35,7 +35,7 @@ const loader = async () => {
   await HTS.start().then(() => {
     const numberOdPointsInhand = 21;
     const points = initPoints(numberOdPointsInhand);
-    console.log(HTS.isRunning);
+    console.log(HTS.isActive);
     window.setInterval(() => {
       HTS.requestPrediction()
         .then((positions) => {

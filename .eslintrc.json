@@ -100,7 +100,6 @@
     "no-invalid-this": "error",
     "no-lone-blocks": "error",
     "no-lonely-if": "error",
-    "no-magic-numbers": "error",
     "no-multi-assign": "error",
     "no-multi-str": "error",
     "no-nested-ternary": "error",
@@ -166,6 +165,14 @@
         "destructuredArrayIgnorePattern": "^_"
       }
     ],
+    "@typescript-eslint/no-magic-numbers": [
+      "error",
+      {
+        "ignoreEnums": true,
+        "ignoreNumericLiteralTypes": true,
+        "ignoreTypeIndexes": true
+      }
+    ],
 
     //Disabled
     "no-await-in-loop": "off",
@@ -174,6 +181,7 @@
     "no-template-curly-in-string": "off",
     "no-unmodified-loop-condition": "off",
     "accessor-pairs": "off",
+    "no-magic-numbers": "off",
     "@typescript-eslint/no-namespace": "off"
   },
   "overrides": [
@@ -181,8 +189,8 @@
     {
       "files": ["**/*.spec.ts"],
       "rules": {
-        "no-magic-numbers": "off",
         "no-unused-expressions": "off",
+        "@typescript-eslint/no-magic-numbers": "off",
         "chai-friendly/no-unused-expressions": "error"
       }
     },

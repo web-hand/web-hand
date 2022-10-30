@@ -1,98 +1,90 @@
-import { coordinates, HandVector, IHandTrackingService, Settings } from './HandTrackingService.type';
-import { Hands } from '@mediapipe/hands';
+import { Coordinates3D, HandVector, IHandTrackingService } from './HandTrackingService.type';
+import { Hands, HandsInterface, Options, Results, ResultsListener } from '@mediapipe/hands';
+import { CanNotFindCameraError } from '../errors/CanNotFindCameraError';
+import { CanNotPerformPredictionError } from '../errors/CanNotPerformPredictionError';
 import { isDefined } from '../utils/isDefined';
+import { ServiceUnavailableError } from '../errors/ServiceUnavailableError';
 
 export class HandTrackingService implements IHandTrackingService {
-  isRunning: boolean;
-  hands: Hands;
-  videoSourceObect: MediaStream | undefined;
-  isInitialize: Promise<void>;
-  videoElement: HTMLVideoElement;
-  resultsBuffer: coordinates[][];
+  private static MODEL_SOURCE = 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/';
 
-  constructor(settings: Settings) {
-    const defaultHandsNumber = 1;
-    const defaultMinTrackingConfidence = 0.5;
-    const defaultMinDetectionConfidence = 0.5;
-    const defaultModelComplexity = 1;
+  private isActive: boolean;
+  private isInitialized: boolean;
+  private videoSource: MediaStream | undefined;
+  private handCoordinates: Coordinates3D[][] = [];
 
-    this.resultsBuffer = [[{ x: 0, y: 0, z: 0 }]];
+  private readonly hands: HandsInterface;
+  private readonly videoElement: HTMLVideoElement;
+
+  constructor(videoSource?: MediaStream, settings?: Options) {
+    this.isActive = false;
+    this.isInitialized = false;
     this.videoElement = document.createElement('video');
-    this.isRunning = false;
-
     this.hands = new Hands({
       locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+        return `${HandTrackingService.MODEL_SOURCE}${file}`;
       },
     });
-
+    this.videoSource = videoSource;
     this.hands.setOptions({
-      maxNumHands: settings?.handsNumber ? settings?.handsNumber : defaultHandsNumber,
-      minDetectionConfidence: settings?.minDetectionConfidence ? settings?.minDetectionConfidence : defaultMinDetectionConfidence,
-      minTrackingConfidence: settings?.minTrackingConfidence ? settings?.minTrackingConfidence : defaultMinTrackingConfidence,
-      modelComplexity: settings?.modelComplexity ? settings?.modelComplexity : defaultModelComplexity,
+      maxNumHands: 1,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+      modelComplexity: 1,
+      ...settings,
     });
-    this.isInitialize = this.hands.initialize().catch((e: string) => {
-      console.error(e);
-    });
+  }
 
-    this.videoSourceObect = settings?.videoSourceObect ? settings?.videoSourceObect : undefined;
+  async initialize(): Promise<void> {
+    await this.hands.initialize();
+    this.isInitialized = true;
   }
 
   async start(): Promise<void> {
-    if (!this.isRunning) {
-      await this.isInitialize;
-      if (!isDefined(this.videoSourceObect)) {
-        this.videoSourceObect = await this.getCamera();
-      }
-      this.videoElement.srcObject = this.videoSourceObect;
-      await this.videoElement.play().catch((e: string) => {
-        throw new Error(`Cannot play media streem ${e}`);
-      });
-      this.isRunning = true;
+    if (this.isActive) {
+      return;
     }
-  }
-
-  private getCamera(): Promise<MediaStream> {
-    const constraints = { audio: false, video: { facingMode: 'environment' } };
-    return new Promise((resolve) => {
-      navigator.mediaDevices
-        ?.getUserMedia(constraints)
-        .then(resolve)
-        .catch((error: string) => {
-          throw new Error(`Cannot create camera: ${error}`);
-        });
-    });
+    if (!this.isInitialized) {
+      await this.initialize();
+    }
+    if (!isDefined(this.videoSource)) {
+      this.videoSource = await this.getCamera();
+    }
+    this.videoElement.srcObject = this.videoSource;
+    await this.videoElement.play();
+    this.hands.onResults(this.handlePrediction);
+    this.isActive = true;
   }
 
   stop(): void {
-    if (this.isRunning) {
+    if (this.isActive) {
       this.videoElement?.remove();
-      this.isRunning = false;
+      this.isActive = false;
     }
   }
 
-  requestPrediction(): Promise<HandVector> {
-    const onResults = (results: { multiHandLandmarks: coordinates[][] }) => {
-      if (results.multiHandLandmarks) {
-        this.resultsBuffer = results.multiHandLandmarks;
-      }
-    };
+  async requestPrediction(): Promise<HandVector> {
+    if (!this.isActive) {
+      throw new ServiceUnavailableError(HandTrackingService.name, `Can not request prediction if service wasn't activated`);
+    }
+    await this.predict();
+    return this.handCoordinates;
+  }
 
-    this.hands.onResults(onResults);
+  private async predict(): Promise<void> {
+    await this.hands.send({ image: this.videoElement }).catch((e) => {
+      throw new CanNotPerformPredictionError(e);
+    });
+  }
 
-    return new Promise((resolve, reject) => {
-      if (!this.isRunning) {
-        reject('Service is not running yet');
-      }
-      this.hands
-        .send({ image: this.videoElement })
-        .then(() => {
-          resolve(this.resultsBuffer);
-        })
-        .catch(() => {
-          reject();
-        });
+  private handlePrediction: ResultsListener = (results: Results) => {
+    this.handCoordinates = results.multiHandLandmarks;
+  };
+
+  private async getCamera(): Promise<MediaStream> {
+    const constraints: MediaStreamConstraints = { audio: false, video: { facingMode: 'environment' } };
+    return await window.navigator.mediaDevices.getUserMedia(constraints).catch((reason: DOMException) => {
+      throw new CanNotFindCameraError(reason);
     });
   }
 }
