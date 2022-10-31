@@ -82,7 +82,10 @@ export class HandTrackingService implements IHandTrackingService {
   };
 
   private async getCamera(): Promise<MediaStream> {
-    const constraints: MediaStreamConstraints = { audio: false, video: { facingMode: 'environment' } };
+    const constraints: MediaStreamConstraints = {
+      audio: false,
+      video: { facingMode: 'environment', frameRate: { ideal: 30 }, width: { max: 1280 } },
+    };
     return await window.navigator.mediaDevices.getUserMedia(constraints).catch((reason: DOMException) => {
       throw new CanNotFindCameraError(reason);
     });

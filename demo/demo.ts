@@ -2,7 +2,7 @@
 import { Coordinates3D } from '../src/HandTrackingService/HandTrackingService.type';
 import { HandTrackingService } from '../src/HandTrackingService/HandTrackingService';
 
-const HTS = new HandTrackingService({});
+const HTS = new HandTrackingService();
 
 const intervalDelay = 30;
 
@@ -32,22 +32,20 @@ const movePoints = (points: HTMLElement[], positions: Coordinates3D[][]) => {
 };
 
 const loader = async () => {
-  await HTS.start().then(() => {
-    const numberOdPointsInhand = 21;
-    const points = initPoints(numberOdPointsInhand);
-    console.log(HTS.isActive);
-    window.setInterval(() => {
-      HTS.requestPrediction()
-        .then((positions) => {
-          if (positions.length) {
-            movePoints(points, positions);
-          }
-        })
-        .catch((error: string) => {
-          throw new Error(`Cannot create camera: ${error}`);
-        });
-    }, intervalDelay);
-  });
+  await HTS.start();
+  const numberOdPointsInhand = 21;
+  const points = initPoints(numberOdPointsInhand);
+  window.setInterval(() => {
+    HTS.requestPrediction()
+      .then((positions) => {
+        if (positions.length) {
+          movePoints(points, positions);
+        }
+      })
+      .catch((error: string) => {
+        throw new Error(`Cannot create camera: ${error}`);
+      });
+  }, intervalDelay);
 };
 
 loader().catch((error: string) => {
