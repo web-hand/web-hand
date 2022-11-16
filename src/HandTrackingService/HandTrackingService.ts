@@ -7,7 +7,6 @@ import { ServiceUnavailableError } from '../errors/ServiceUnavailableError';
 
 export class HandTrackingService implements IHandTrackingService {
   private static MODEL_SOURCE = 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/';
-
   private isActive: boolean;
   private isInitialized: boolean;
   private videoSource: MediaStream | undefined;

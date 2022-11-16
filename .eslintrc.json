@@ -158,6 +158,8 @@
     "import/no-cycle": "error",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/explicit-member-accessibility": ["error",
+      { "accessibility": "no-public" }],
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
