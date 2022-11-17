@@ -1,9 +1,9 @@
 import { Coordinates3D, HandVector, IHandTrackingService } from './HandTrackingService.type';
 import { Hands, HandsInterface, Options, Results, ResultsListener } from '@mediapipe/hands';
-import { CanNotFindCameraError } from '../errors/CanNotFindCameraError';
-import { CanNotPerformPredictionError } from '../errors/CanNotPerformPredictionError';
-import { isDefined } from '../utils/isDefined';
-import { ServiceUnavailableError } from '../errors/ServiceUnavailableError';
+import { CanNotFindCameraError } from '../../errors/CanNotFindCameraError';
+import { CanNotPerformPredictionError } from '../../errors/CanNotPerformPredictionError';
+import { isDefined } from '../../utils/isDefined';
+import { ServiceUnavailableError } from '../../errors/ServiceUnavailableError';
 
 export class HandTrackingService implements IHandTrackingService {
   private static MODEL_SOURCE = 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/';

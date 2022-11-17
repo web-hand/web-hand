@@ -1,6 +1,6 @@
 // THIS IS DEMO FILE ONLY FOR DEV TESTING
-import { Coordinates3D } from '../src/HandTrackingService/HandTrackingService.type';
-import { HandTrackingService } from '../src/HandTrackingService/HandTrackingService';
+import { Coordinates3D } from '../src/services/HandTrackingService/HandTrackingService.type';
+import { HandTrackingService } from '../src/services/HandTrackingService/HandTrackingService';
 
 const HTS = new HandTrackingService();
 

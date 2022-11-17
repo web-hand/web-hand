@@ -1,6 +1,7 @@
 import * as sinon from 'sinon';
 import { beforeEach, describe, it } from 'mocha';
 import { expect } from 'chai';
+import { IObjectObservable } from '../../../src/observable/ObjectObservable.type';
 import { ObjectObservable } from '../../../src/observable/ObjectObservable';
 
 describe(ObjectObservable.name, () => {
@@ -9,7 +10,7 @@ describe(ObjectObservable.name, () => {
     firstName: 'Jan',
     lastName: 'Kowalski',
   };
-  let observableObj: ObjectObservable<typeof sourcePerson>;
+  let observableObj: IObjectObservable<typeof sourcePerson>;
   beforeEach(() => {
     observableObj = new ObjectObservable(structuredClone(sourcePerson));
   });
