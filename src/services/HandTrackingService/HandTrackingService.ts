@@ -1,4 +1,4 @@
-import { Coordinates3D, HandVector, IHandTrackingService } from './HandTrackingService.type';
+import type { Coordinates3D, HandVector, IHandTrackingService } from './HandTrackingService.type';
 import { Hands, HandsInterface, Options, Results, ResultsListener } from '@mediapipe/hands';
 import { CanNotFindCameraError } from '../../errors/CanNotFindCameraError';
 import { CanNotPerformPredictionError } from '../../errors/CanNotPerformPredictionError';
@@ -35,6 +35,9 @@ export class HandTrackingService implements IHandTrackingService {
   }
 
   async initialize(): Promise<void> {
+    if (this.isInitialized) {
+      return;
+    }
     await this.hands.initialize();
     this.isInitialized = true;
     document.body.append(this.videoElement); // TODO(GH-38): we have to replace this with canvas element + do not attach element to DOM
@@ -59,7 +62,7 @@ export class HandTrackingService implements IHandTrackingService {
   stop(): void {
     if (this.isActive) {
       this.videoElement.pause();
-      this.videoElement?.remove();
+      this.videoElement?.remove(); // TODO(GH-38): we have to replace this with canvas element + do not attach element to DOM
       this.isActive = false;
     }
   }

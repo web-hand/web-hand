@@ -188,7 +188,7 @@
   "overrides": [
     // Disabled rules only for test files
     {
-      "files": ["**/*.spec.ts"],
+      "files": ["**/*.spec.ts", "**/*.mock.ts", "**/*.stub.ts"],
       "rules": {
         "no-unused-expressions": "off",
         "@typescript-eslint/no-magic-numbers": "off",

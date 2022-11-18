@@ -29,7 +29,7 @@ describe(ObjectObservable.name, () => {
       observableObj.unlockNotifications();
       observableObj.lockNotifications();
       observableObj.value.age = 10;
-      expect(subscriberSpy).to.not.been.called;
+      expect(subscriberSpy).to.have.not.been.called;
     });
   });
   describe('detect value', () => {
@@ -95,7 +95,7 @@ describe(ObjectObservable.name, () => {
       const subscriberSpy = sinon.spy();
       observableObj.subscribe(subscriberSpy);
       observableObj.value.age = sourcePerson.age;
-      expect(subscriberSpy).to.not.been.called;
+      expect(subscriberSpy).to.have.not.been.called;
     });
     it('should NOT call any subscriber if key value has changed to same vale', () => {
       const subscriberSpy1 = sinon.spy();
@@ -103,8 +103,8 @@ describe(ObjectObservable.name, () => {
       observableObj.subscribe(subscriberSpy1);
       observableObj.subscribe(subscriberSpy2);
       observableObj.value.age = sourcePerson.age;
-      expect(subscriberSpy1).to.not.been.called;
-      expect(subscriberSpy2).to.not.been.called;
+      expect(subscriberSpy1).to.have.not.been.called;
+      expect(subscriberSpy2).to.have.not.been.called;
     });
     it('should NOT call subscribers if all changed keys have same value', () => {
       const subscriberSpy = sinon.spy();
@@ -114,7 +114,7 @@ describe(ObjectObservable.name, () => {
       };
       observableObj.subscribe(subscriberSpy);
       observableObj.updateManyKeysAtOnce(newValues);
-      expect(subscriberSpy).to.not.been.called;
+      expect(subscriberSpy).to.have.not.been.called;
     });
   });
   describe('disposers', () => {

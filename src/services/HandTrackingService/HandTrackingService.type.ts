@@ -7,7 +7,8 @@ export interface Coordinates3D {
 export type HandVector = Coordinates3D[][];
 
 export interface IHandTrackingService {
+  requestPrediction(): Promise<HandVector>;
+  initialize(): Promise<void>;
   start(): Promise<void>;
   stop(): void;
-  requestPrediction(): Promise<HandVector>;
 }
