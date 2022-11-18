@@ -51,19 +51,3 @@ const loader = async () => {
 loader().catch((error: string) => {
   throw new Error(`Cannot create camera: ${error}`);
 });
-
-// HTS.start()
-//   .then(() => {
-//     console.log(HTS.isRunning);
-//   })
-//   .catch(console.error);
-
-// document.addEventListener('keydown', () => {
-//   console.log('sending...');
-
-//   HTS.requestPrediction()
-//     .then((res) => {
-//       console.log(res);
-//     })
-//     .catch(console.error);
-// });
