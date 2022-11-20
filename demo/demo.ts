@@ -33,8 +33,8 @@ const movePoints = (points: HTMLElement[], positions: Coordinates3D[][]) => {
 
 const loader = async () => {
   await HTS.start();
-  const numberOdPointsInhand = 21;
-  const points = initPoints(numberOdPointsInhand);
+  const numberOfPointsInHand = 21;
+  const points = initPoints(numberOfPointsInHand);
   window.setInterval(() => {
     HTS.requestPrediction()
       .then((positions) => {

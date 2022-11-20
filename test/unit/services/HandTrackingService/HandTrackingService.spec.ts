@@ -40,18 +40,15 @@ describe(HandTrackingService.name, () => {
       await handTrackingService.start();
       await handTrackingService.start();
       expect(initializeSpy).to.have.been.calledOnce;
-      initializeSpy.restore();
     });
     it('should NOT call initialize if service was already initialized', async () => {
       await handTrackingService.initialize();
       await handTrackingService.start();
       expect(initializeSpy).to.have.been.calledOnce;
-      initializeSpy.restore();
     });
     it('should call initialize method if service was NOT initialized', async () => {
       await handTrackingService.start();
       expect(initializeSpy).to.have.been.calledOnce;
-      initializeSpy.restore();
     });
   });
   describe(HandTrackingService.prototype.requestPrediction.name, () => {
