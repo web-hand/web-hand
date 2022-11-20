@@ -100,7 +100,6 @@
     "no-invalid-this": "error",
     "no-lone-blocks": "error",
     "no-lonely-if": "error",
-    "no-magic-numbers": "error",
     "no-multi-assign": "error",
     "no-multi-str": "error",
     "no-nested-ternary": "error",
@@ -159,11 +158,20 @@
     "import/no-cycle": "error",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-non-null-assertion": "error",
+    "@typescript-eslint/explicit-member-accessibility": ["error", { "accessibility": "no-public" }],
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
         "argsIgnorePattern": "^_",
         "destructuredArrayIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-magic-numbers": [
+      "error",
+      {
+        "ignoreEnums": true,
+        "ignoreNumericLiteralTypes": true,
+        "ignoreTypeIndexes": true
       }
     ],
 
@@ -174,15 +182,16 @@
     "no-template-curly-in-string": "off",
     "no-unmodified-loop-condition": "off",
     "accessor-pairs": "off",
+    "no-magic-numbers": "off",
     "@typescript-eslint/no-namespace": "off"
   },
   "overrides": [
     // Disabled rules only for test files
     {
-      "files": ["**/*.spec.ts"],
+      "files": ["**/*.spec.ts", "**/*.mock.ts", "**/*.stub.ts"],
       "rules": {
-        "no-magic-numbers": "off",
         "no-unused-expressions": "off",
+        "@typescript-eslint/no-magic-numbers": "off",
         "chai-friendly/no-unused-expressions": "error"
       }
     },

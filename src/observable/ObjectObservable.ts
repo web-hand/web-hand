@@ -31,7 +31,7 @@ export class ObjectObservable<T extends Record<PropertyKey, unknown>> implements
    * @param subscriptionCallback function that will be triggered if any object key will change value
    * @param disposeCallback function that will be called if someone unsubscribes
    */
-  public subscribe(subscriptionCallback: SubscribeCallback<T>, disposeCallback?: DisposeCallback): void {
+  subscribe(subscriptionCallback: SubscribeCallback<T>, disposeCallback?: DisposeCallback): void {
     this.subscribers.set(subscriptionCallback, disposeCallback);
   }
 
@@ -40,7 +40,7 @@ export class ObjectObservable<T extends Record<PropertyKey, unknown>> implements
    *
    * @param subscriptionCallback function that should not be triggered anymore for any key values changes
    */
-  public unsubscribe(subscriptionCallback: SubscribeCallback<T>): boolean {
+  unsubscribe(subscriptionCallback: SubscribeCallback<T>): boolean {
     const disposer = this.subscribers.get(subscriptionCallback);
     if (isDefined(disposer)) {
       disposer();
@@ -52,7 +52,7 @@ export class ObjectObservable<T extends Record<PropertyKey, unknown>> implements
   /**
    * Dispose whole observable. It means that all current subscribes will be unsubscribed and won't be getting any notifications anymore
    */
-  public dispose(): void {
+  dispose(): void {
     for (const [subscriptionCallback, disposeCallback] of this.subscribers.entries()) {
       if (disposeCallback) {
         disposeCallback();
@@ -64,14 +64,14 @@ export class ObjectObservable<T extends Record<PropertyKey, unknown>> implements
   /**
    * This will block sending any notifications for every subscriber
    */
-  public lockNotifications(): void {
+  lockNotifications(): void {
     this.notifyLock = true;
   }
 
   /**
    * This will unblock sending any notifications for every subscriber
    */
-  public unlockNotifications(): void {
+  unlockNotifications(): void {
     this.notifyLock = false;
   }
 
@@ -80,7 +80,7 @@ export class ObjectObservable<T extends Record<PropertyKey, unknown>> implements
    *
    * @param newValue all keys with values you want to update
    */
-  public updateManyKeysAtOnce(newValue: Partial<T>): void {
+  updateManyKeysAtOnce(newValue: Partial<T>): void {
     let shouldCallSubscribers = false;
     this.lockNotifications();
     for (const [key, fieldValue] of Object.entries(newValue)) {
