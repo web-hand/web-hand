@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { Hands } from '@mediapipe/hands';
 import { HANDS_INITIALIZE_STUB } from '../../../stubs/MEDIA_PIPE_HANDS.stub';
 import { HandTrackingService } from '../../../../src/services/HandTrackingService/HandTrackingService';
-import { IHandTrackingService } from '../../../../src/services/HandTrackingService/HandTrackingService.type';
+import { IHandTrackingService } from '../../../../src/services/HandTrackingService/HandTrackingService.types';
 import { ServiceUnavailableError } from '../../../../src/errors/ServiceUnavailableError';
 import { SinonSpy } from 'sinon';
 

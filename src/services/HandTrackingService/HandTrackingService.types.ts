@@ -1,7 +1,10 @@
-export interface Coordinates3D {
-  x: number;
-  y: number;
-  z: number;
+import { CameraServiceProps } from '../CameraService/CameraService.types';
+import { Coordinates3D } from '../../structures/Point3D/Point3D.types';
+import { Options } from '@mediapipe/hands';
+
+export interface HandTrackingServiceProps {
+  modelSettings?: Options;
+  cameraServiceProps?: CameraServiceProps;
 }
 
 export type HandVector = Coordinates3D[][];

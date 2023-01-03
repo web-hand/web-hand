@@ -1,15 +1,14 @@
 export interface CameraServiceProps {
   width: number;
-  height: number;
-
+  height?: number;
   streamWrapper?: HTMLVideoElement;
 }
 
 export interface ICameraService extends Required<Pick<CameraServiceProps, 'streamWrapper'>> {
   rawStream?: MediaStream;
 
-  initialize(): void;
+  initialize(): Promise<void>;
+  start(): Promise<void>;
   stop(): void;
-  start(): void;
   destroy(): void;
 }

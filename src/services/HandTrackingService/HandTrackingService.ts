@@ -1,25 +1,27 @@
-import type { Coordinates3D, HandVector, IHandTrackingService } from './HandTrackingService.type';
-import { Hands, HandsInterface, Options, Results, ResultsListener } from '@mediapipe/hands';
-import { CanNotFindCameraError } from '../../errors/CanNotFindCameraError';
+import { Hands, HandsInterface, Results, ResultsListener } from '@mediapipe/hands';
+import type { HandTrackingServiceProps, HandVector, IHandTrackingService } from './HandTrackingService.types';
+import { CameraService } from '../CameraService/CameraService';
 import { CanNotPerformPredictionError } from '../../errors/CanNotPerformPredictionError';
-import { isDefined } from '../../utils/isDefined';
+import type { Coordinates3D } from '../../structures/Point3D/Point3D.types';
+import type { ICameraService } from '../CameraService/CameraService.types';
 import { ServiceUnavailableError } from '../../errors/ServiceUnavailableError';
 
 export class HandTrackingService implements IHandTrackingService {
-  private static MODEL_SOURCE = 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/';
+  private static readonly DEFAULT_STREAM_WIDTH = 720;
+  private static readonly MODEL_SOURCE = 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/';
   private isActive: boolean;
   private isInitialized: boolean;
-  private videoSource: MediaStream | undefined;
+  private cameraService: ICameraService;
   private handCoordinates: Coordinates3D[][] = [];
 
   private readonly hands: HandsInterface;
   private readonly videoElement: HTMLVideoElement;
 
-  constructor(videoSource?: MediaStream, settings?: Options) {
+  constructor({ cameraServiceProps, modelSettings = {} }: HandTrackingServiceProps = {}) {
     this.isActive = false;
     this.isInitialized = false;
     this.videoElement = document.createElement('video');
-    this.videoSource = videoSource;
+    this.cameraService = new CameraService(cameraServiceProps ?? { width: HandTrackingService.DEFAULT_STREAM_WIDTH });
     this.hands = new Hands({
       locateFile: (file) => {
         return `${HandTrackingService.MODEL_SOURCE}${file}`;
@@ -30,7 +32,7 @@ export class HandTrackingService implements IHandTrackingService {
       minDetectionConfidence: 0.5,
       minTrackingConfidence: 0.5,
       modelComplexity: 1,
-      ...settings,
+      ...modelSettings,
     });
   }
 
@@ -38,9 +40,8 @@ export class HandTrackingService implements IHandTrackingService {
     if (this.isInitialized) {
       return;
     }
-    await this.hands.initialize();
+    await Promise.all([this.cameraService.initialize(), this.hands.initialize()]);
     this.isInitialized = true;
-    document.body.append(this.videoElement); // TODO(GH-38): we have to replace this with canvas element + do not attach element to DOM
   }
 
   async start(): Promise<void> {
@@ -50,20 +51,15 @@ export class HandTrackingService implements IHandTrackingService {
     if (!this.isInitialized) {
       await this.initialize();
     }
-    if (!isDefined(this.videoSource)) {
-      this.videoSource = await this.getCamera();
-    }
-    this.videoElement.srcObject = this.videoSource;
-    await this.videoElement.play();
+    await this.cameraService.start();
     this.hands.onResults(this.handlePrediction);
     this.isActive = true;
   }
 
   stop(): void {
     if (this.isActive) {
-      this.videoElement.pause();
-      this.videoElement?.remove(); // TODO(GH-38): we have to replace this with canvas element + do not attach element to DOM
       this.isActive = false;
+      this.cameraService.stop();
     }
   }
 
@@ -84,14 +80,4 @@ export class HandTrackingService implements IHandTrackingService {
   private handlePrediction: ResultsListener = (results: Results) => {
     this.handCoordinates = results.multiHandLandmarks;
   };
-
-  private async getCamera(): Promise<MediaStream> {
-    const constraints: MediaStreamConstraints = {
-      audio: false,
-      video: { facingMode: 'environment', frameRate: { ideal: 30 }, width: { max: 1280 } },
-    };
-    return await window.navigator.mediaDevices.getUserMedia(constraints).catch((reason: DOMException) => {
-      throw new CanNotFindCameraError(reason);
-    });
-  }
 }
