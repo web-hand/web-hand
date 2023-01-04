@@ -19,12 +19,12 @@ export class CameraService implements ICameraService {
   async initialize(): Promise<void> {
     if (isDefined(this.streamWrapper.srcObject)) {
       console.warn('Stream has been already initialized');
+      return;
     }
     const videoStream = await this.getWebCamStream();
     if (videoStream) {
       this.rawStream = videoStream;
       this.streamWrapper.srcObject = videoStream;
-      await this.streamWrapper.play();
     }
   }
 
