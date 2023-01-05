@@ -1,15 +1,20 @@
 import { CameraServiceProps, ICameraService } from './CameraService.types';
 import { CanNotUseCameraError } from '../../errors/CanNotUseCameraError';
+import { DEFAULT_CAMERA_CONSTRAINTS } from './CameraService.constants';
 import { isDefined } from '../../utils/isDefined';
 
 export class CameraService implements ICameraService {
-  private static readonly DEFAULT_ASPECT_RATIO = 4 / 3;
-
   rawStream?: MediaStream;
   streamWrapper: HTMLVideoElement;
 
-  constructor({ width, height, streamWrapper }: CameraServiceProps) {
-    this.streamWrapper = this.createVideoStreamer(width, height, streamWrapper);
+  private readonly cameraConstraints: MediaStreamConstraints;
+
+  constructor({ cameraConstraints = {}, streamWrapper }: CameraServiceProps = {}) {
+    this.cameraConstraints = {
+      ...DEFAULT_CAMERA_CONSTRAINTS,
+      ...cameraConstraints,
+    };
+    this.streamWrapper = this.createVideoStreamer(streamWrapper);
   }
 
   async start(): Promise<void> {
@@ -37,20 +42,15 @@ export class CameraService implements ICameraService {
     this.streamWrapper.remove();
   }
 
-  private createVideoStreamer(width: number, height?: number, displayWrapper?: HTMLVideoElement): HTMLVideoElement {
+  private createVideoStreamer(displayWrapper?: HTMLVideoElement): HTMLVideoElement {
     const wrapper = displayWrapper ?? document.createElement('video');
     wrapper.muted = true;
-    wrapper.width = width;
-    if (isDefined(height)) {
-      wrapper.height = height;
-    } else {
-      wrapper.height = wrapper.videoHeight / (wrapper.videoWidth / width) || width / CameraService.DEFAULT_ASPECT_RATIO;
-    }
+    document.body.append(wrapper);
     return wrapper;
   }
 
   private async getWebCamStream(): Promise<MediaStream | void> {
-    return await window.navigator.mediaDevices.getUserMedia({ audio: false, video: true }).catch((err: DOMException) => {
+    return await window.navigator.mediaDevices.getUserMedia(this.cameraConstraints).catch((err: DOMException) => {
       throw new CanNotUseCameraError(err);
     });
   }

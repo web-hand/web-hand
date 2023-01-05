@@ -1,4 +1,6 @@
 // THIS IS DEMO FILE ONLY FOR DEV TESTING
+/* eslint-disable */
+
 import { Coordinates3D } from '../src/structures/Point3D/Point3D.types';
 import { HandTrackingService } from '../src/services/HandTrackingService/HandTrackingService';
 
@@ -33,6 +35,7 @@ const movePoints = (points: HTMLElement[], positions: Coordinates3D[][]) => {
 
 const loader = async () => {
   await HTS.start();
+  document.body.prepend(HTS['cameraService'].streamWrapper);
   const numberOfPointsInHand = 21;
   const points = initPoints(numberOfPointsInHand);
   window.setInterval(() => {

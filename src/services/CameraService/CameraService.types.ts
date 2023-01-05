@@ -1,6 +1,5 @@
 export interface CameraServiceProps {
-  width: number;
-  height?: number;
+  cameraConstraints?: MediaStreamConstraints;
   streamWrapper?: HTMLVideoElement;
 }
 

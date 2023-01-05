@@ -7,13 +7,12 @@ import type { ICameraService } from '../CameraService/CameraService.types';
 import { ServiceUnavailableError } from '../../errors/ServiceUnavailableError';
 
 export class HandTrackingService implements IHandTrackingService {
-  private static readonly DEFAULT_STREAM_WIDTH = 720;
   private static readonly MODEL_SOURCE = 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/';
   private isActive: boolean;
   private isInitialized: boolean;
-  private cameraService: ICameraService;
   private handCoordinates: Coordinates3D[][] = [];
 
+  private readonly cameraService: ICameraService;
   private readonly hands: HandsInterface;
   private readonly videoElement: HTMLVideoElement;
 
@@ -21,7 +20,7 @@ export class HandTrackingService implements IHandTrackingService {
     this.isActive = false;
     this.isInitialized = false;
     this.videoElement = document.createElement('video');
-    this.cameraService = new CameraService(cameraServiceProps ?? { width: HandTrackingService.DEFAULT_STREAM_WIDTH });
+    this.cameraService = new CameraService(cameraServiceProps ?? {});
     this.hands = new Hands({
       locateFile: (file) => {
         return `${HandTrackingService.MODEL_SOURCE}${file}`;

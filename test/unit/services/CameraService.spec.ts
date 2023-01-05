@@ -11,18 +11,7 @@ import { SinonSpy } from 'sinon';
 describe(CameraService.name, () => {
   let cameraService: ICameraService;
   beforeEach(() => {
-    cameraService = new CameraService({ width: 720 });
-  });
-  describe('create camera service', () => {
-    it('should create wrapper with default height', () => {
-      cameraService = new CameraService({ width: 720 });
-      expect(cameraService.streamWrapper.height).to.have.been.greaterThan(0);
-    });
-    it('should create wrapper with given height', () => {
-      const expectedHeight = 1280;
-      cameraService = new CameraService({ height: expectedHeight, width: 720 });
-      expect(cameraService.streamWrapper.height).to.have.been.equal(expectedHeight);
-    });
+    cameraService = new CameraService();
   });
   describe(CameraService.prototype.initialize.name, () => {
     const getUserMediaSpy: SinonSpy = sinon.spy(MEDIA_DEVICES, 'getUserMedia');
