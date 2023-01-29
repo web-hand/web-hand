@@ -14,12 +14,10 @@ export class HandTrackingService implements IHandTrackingService {
 
   private readonly cameraService: ICameraService;
   private readonly hands: HandsInterface;
-  private readonly videoElement: HTMLVideoElement;
 
   constructor({ cameraServiceProps, modelSettings = {} }: HandTrackingServiceProps = {}) {
     this.isActive = false;
     this.isInitialized = false;
-    this.videoElement = document.createElement('video');
     this.cameraService = new CameraService(cameraServiceProps ?? {});
     this.hands = new Hands({
       locateFile: (file) => {
@@ -71,7 +69,7 @@ export class HandTrackingService implements IHandTrackingService {
   }
 
   private async predict(): Promise<void> {
-    await this.hands.send({ image: this.videoElement }).catch((e) => {
+    await this.hands.send({ image: this.cameraService.streamWrapper }).catch((e) => {
       throw new CanNotPerformPredictionError(e);
     });
   }

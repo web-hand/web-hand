@@ -210,7 +210,7 @@
         "@typescript-eslint/no-magic-numbers": [
           "error",
           {
-            "ignore": [3, 4],
+            "ignore": [0, 3, 4],
             "ignoreEnums": true,
             "ignoreNumericLiteralTypes": true,
             "ignoreTypeIndexes": true,

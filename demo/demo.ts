@@ -35,7 +35,6 @@ const movePoints = (points: HTMLElement[], positions: Coordinates3D[][]) => {
 
 const loader = async () => {
   await HTS.start();
-  document.body.prepend(HTS['cameraService'].streamWrapper);
   const numberOfPointsInHand = 21;
   const points = initPoints(numberOfPointsInHand);
   window.setInterval(() => {

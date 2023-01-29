@@ -18,6 +18,9 @@ export class CameraService implements ICameraService {
   }
 
   async start(): Promise<void> {
+    if (this.isVideoPlaying()) {
+      return;
+    }
     return await this.streamWrapper.play();
   }
 
@@ -42,10 +45,18 @@ export class CameraService implements ICameraService {
     this.streamWrapper.remove();
   }
 
+  private isVideoPlaying(): boolean {
+    return (
+      this.streamWrapper.currentTime > 0 &&
+      !this.streamWrapper.paused &&
+      !this.streamWrapper.ended &&
+      this.streamWrapper.readyState > this.streamWrapper.HAVE_CURRENT_DATA
+    );
+  }
+
   private createVideoStreamer(displayWrapper?: HTMLVideoElement): HTMLVideoElement {
     const wrapper = displayWrapper ?? document.createElement('video');
     wrapper.muted = true;
-    document.body.append(wrapper);
     return wrapper;
   }
 
