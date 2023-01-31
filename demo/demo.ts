@@ -1,5 +1,7 @@
 // THIS IS DEMO FILE ONLY FOR DEV TESTING
-import { Coordinates3D } from '../src/services/HandTrackingService/HandTrackingService.type';
+/* eslint-disable */
+
+import { Coordinates3D } from '../src/structures/Point3D/Point3D.types';
 import { HandTrackingService } from '../src/services/HandTrackingService/HandTrackingService';
 
 const HTS = new HandTrackingService();

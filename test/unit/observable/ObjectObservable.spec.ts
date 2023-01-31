@@ -1,7 +1,7 @@
 import * as sinon from 'sinon';
 import { beforeEach, describe, it } from 'mocha';
 import { expect } from 'chai';
-import { IObjectObservable } from '../../../src/observable/ObjectObservable.type';
+import { IObjectObservable } from '../../../src/observable/ObjectObservable.types';
 import { ObjectObservable } from '../../../src/observable/ObjectObservable';
 
 describe(ObjectObservable.name, () => {

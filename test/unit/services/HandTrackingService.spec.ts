@@ -1,12 +1,12 @@
 import * as sinon from 'sinon';
-import { afterEach, beforeEach, describe, it } from 'mocha';
-import { CanNotPerformPredictionError } from '../../../../src/errors/CanNotPerformPredictionError';
+import { after, afterEach, beforeEach, describe, it } from 'mocha';
+import { CanNotPerformPredictionError } from '../../../src/errors/CanNotPerformPredictionError';
 import { expect } from 'chai';
 import { Hands } from '@mediapipe/hands';
-import { HANDS_INITIALIZE_STUB } from '../../../stubs/MEDIA_PIPE_HANDS.stub';
-import { HandTrackingService } from '../../../../src/services/HandTrackingService/HandTrackingService';
-import { IHandTrackingService } from '../../../../src/services/HandTrackingService/HandTrackingService.type';
-import { ServiceUnavailableError } from '../../../../src/errors/ServiceUnavailableError';
+import { HANDS_INITIALIZE_STUB } from '../../stubs/MEDIA_PIPE_HANDS.stub';
+import { HandTrackingService } from '../../../src/services/HandTrackingService/HandTrackingService';
+import { IHandTrackingService } from '../../../src/services/HandTrackingService/HandTrackingService.types';
+import { ServiceUnavailableError } from '../../../src/errors/ServiceUnavailableError';
 import { SinonSpy } from 'sinon';
 
 describe(HandTrackingService.name, () => {
@@ -34,6 +34,9 @@ describe(HandTrackingService.name, () => {
       initializeSpy = sinon.spy(handTrackingService, 'initialize');
     });
     afterEach(() => {
+      initializeSpy.resetHistory();
+    });
+    after(() => {
       initializeSpy.restore();
     });
     it('should call initialize method only once if service was activated', async () => {

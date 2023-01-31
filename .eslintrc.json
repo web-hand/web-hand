@@ -171,7 +171,9 @@
       {
         "ignoreEnums": true,
         "ignoreNumericLiteralTypes": true,
-        "ignoreTypeIndexes": true
+        "ignoreTypeIndexes": true,
+        "ignoreDefaultValues": true,
+        "ignoreReadonlyClassProperties": true
       }
     ],
 
@@ -200,6 +202,22 @@
       "rules": {
         "eqeqeq": "off",
         "no-eq-null": "off"
+      }
+    },
+    {
+      "files": ["**/CameraService.ts"],
+      "rules": {
+        "@typescript-eslint/no-magic-numbers": [
+          "error",
+          {
+            "ignore": [0, 3, 4],
+            "ignoreEnums": true,
+            "ignoreNumericLiteralTypes": true,
+            "ignoreTypeIndexes": true,
+            "ignoreDefaultValues": true,
+            "ignoreReadonlyClassProperties": true
+          }
+        ]
       }
     }
   ]

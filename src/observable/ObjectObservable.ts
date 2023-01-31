@@ -1,4 +1,4 @@
-import type { DataStructureProxy, DisposeCallback, IObjectObservable, SubscribeCallback } from './ObjectObservable.type';
+import type { DataStructureProxy, DisposeCallback, IObjectObservable, SubscribeCallback } from './ObjectObservable.types';
 import { isDefined } from '../utils/isDefined';
 
 export class ObjectObservable<T extends Record<PropertyKey, unknown>> implements IObjectObservable<T> {
