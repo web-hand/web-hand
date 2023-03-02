@@ -1,8 +1,7 @@
+import type { HandLandmarks, HandTrackingServiceProps, IHandTrackingService } from './HandTrackingService.types';
 import { Hands, HandsInterface, Results, ResultsListener } from '@mediapipe/hands';
-import type { HandTrackingServiceProps, HandVector, IHandTrackingService } from './HandTrackingService.types';
 import { CameraService } from '../CameraService/CameraService';
 import { CanNotPerformPredictionError } from '../../errors/CanNotPerformPredictionError';
-import type { Coordinates3D } from '../../structures/Point3D/Point3D.types';
 import type { ICameraService } from '../CameraService/CameraService.types';
 import { ServiceUnavailableError } from '../../errors/ServiceUnavailableError';
 
@@ -10,7 +9,7 @@ export class HandTrackingService implements IHandTrackingService {
   private static readonly MODEL_SOURCE = 'https://cdn.jsdelivr.net/npm/@mediapipe/hands/';
   private isActive: boolean;
   private isInitialized: boolean;
-  private handCoordinates: Coordinates3D[][] = [];
+  private handCoordinates: HandLandmarks[] = [];
 
   private readonly cameraService: ICameraService;
   private readonly hands: HandsInterface;
@@ -60,7 +59,7 @@ export class HandTrackingService implements IHandTrackingService {
     }
   }
 
-  async requestPrediction(): Promise<HandVector> {
+  async requestPrediction(): Promise<HandLandmarks[]> {
     if (!this.isActive) {
       throw new ServiceUnavailableError(HandTrackingService.name, `Can not request prediction if service wasn't activated`);
     }
@@ -75,6 +74,6 @@ export class HandTrackingService implements IHandTrackingService {
   }
 
   private handlePrediction: ResultsListener = (results: Results) => {
-    this.handCoordinates = results.multiHandLandmarks;
+    this.handCoordinates = results.multiHandLandmarks as HandLandmarks[];
   };
 }

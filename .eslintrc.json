@@ -59,7 +59,6 @@
     "no-unsafe-finally": "error",
     "no-unsafe-negation": "error",
     "no-unsafe-optional-chaining": "error",
-    "no-use-before-define": "error",
     "no-useless-backreference": "error",
     "use-isnan": "error",
     "valid-typeof": "error",
@@ -183,6 +182,7 @@
     "no-constant-binary-expression": "off",
     "no-template-curly-in-string": "off",
     "no-unmodified-loop-condition": "off",
+    "no-use-before-define": "off",
     "accessor-pairs": "off",
     "no-magic-numbers": "off",
     "@typescript-eslint/no-namespace": "off"
@@ -211,6 +211,38 @@
           "error",
           {
             "ignore": [0, 3, 4],
+            "ignoreEnums": true,
+            "ignoreNumericLiteralTypes": true,
+            "ignoreTypeIndexes": true,
+            "ignoreDefaultValues": true,
+            "ignoreReadonlyClassProperties": true
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/HandLandmarksService.ts"],
+      "rules": {
+        "@typescript-eslint/no-magic-numbers": [
+          "error",
+          {
+            "ignore": [0],
+            "ignoreEnums": true,
+            "ignoreNumericLiteralTypes": true,
+            "ignoreTypeIndexes": true,
+            "ignoreDefaultValues": true,
+            "ignoreReadonlyClassProperties": true
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/isHoldGesture.ts"],
+      "rules": {
+        "@typescript-eslint/no-magic-numbers": [
+          "error",
+          {
+            "ignore": [1],
             "ignoreEnums": true,
             "ignoreNumericLiteralTypes": true,
             "ignoreTypeIndexes": true,
